@@ -2,8 +2,8 @@ import { getfirstAndLastDigit } from '../helpers/firstAndLastDigit';
 import { getFirstAndLastSpelledNum } from '../helpers/firstAndLastSpelled';
 import { parseInput } from '../helpers/parseInput';
 
-const restoreCalibrationValues = async (inputPath: string) => {
-  const input = await parseInput(inputPath);
+const restoreCalibrationValues = (inputPath: string) => {
+  const input = parseInput(inputPath);
 
   return input.reduce((sum, currLine) => {
     return sum + calculateLineCalibration(currLine);
@@ -11,27 +11,27 @@ const restoreCalibrationValues = async (inputPath: string) => {
 };
 
 const calculateLineCalibration = (line: string) => {
-  if (!line.trim()) return 0;
-
   const digit = getfirstAndLastDigit(line);
   const spelled = getFirstAndLastSpelledNum(line);
 
+  let first = '';
+  let last = '';
   if ('first' in digit && 'first' in spelled) {
-    const first =
+    first =
       digit.first.index < spelled.first.index
         ? digit.first.num
         : spelled.first.num;
-    const last =
+    last =
       digit.last.index > spelled.last.index ? digit.last.num : spelled.last.num;
-
-    return Number(`${first}${last}`);
   } else if ('first' in spelled) {
-    return Number(`${spelled.first.num}${spelled.last.num}`);
+    first = spelled.first.num;
+    last = spelled.last.num;
   } else if ('first' in digit) {
-    return Number(`${digit.first.num}${digit.last.num}`);
+    first = digit.first.num;
+    last = digit.last.num;
   }
 
-  return 0;
+  return Number(`${first}${last}`);
 };
 
-restoreCalibrationValues('./day1-input.txt').then(console.log);
+console.log(restoreCalibrationValues('./day1-input.txt'));

@@ -1,8 +1,5 @@
-import fs from 'node:fs/promises';
+import fs from 'fs';
 
-export const parseInput = async (inputPath: string) => {
-  const input = await fs.readFile(inputPath, {
-    encoding: 'utf8',
-  });
-  return input.split('\n');
+export const parseInput = (inputPath: string) => {
+  return fs.readFileSync(inputPath, 'utf8').trim().split('\n');
 };

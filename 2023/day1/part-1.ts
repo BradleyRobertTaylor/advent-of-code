@@ -1,8 +1,7 @@
-import { isNoNumbers } from '../helpers/isNoNumbers';
 import { parseInput } from '../helpers/parseInput';
 
-const restoreCalibrationValues = async (inputPath: string) => {
-  const input = await parseInput(inputPath);
+const restoreCalibrationValues = (inputPath: string) => {
+  const input = parseInput(inputPath);
 
   return input.reduce((sum, currLine) => {
     return sum + calculateLineCalibration(currLine);
@@ -10,20 +9,17 @@ const restoreCalibrationValues = async (inputPath: string) => {
 };
 
 const calculateLineCalibration = (line: string) => {
-  if (isNoNumbers(line)) return 0;
+  let first = line.split('').find((char) => !isNaN(Number(char)))!;
 
-  let l = 0;
-  let r = line.length - 1;
-
-  while (isNaN(Number(line[l]))) {
-    l++;
+  let last = '';
+  for (let i = line.length - 1; i >= 0; i--) {
+    if (!isNaN(Number(line[i]))) {
+      last = line[i]!;
+      break;
+    }
   }
 
-  while (isNaN(Number(line[r]))) {
-    r--;
-  }
-
-  return Number(`${line[l]}${line[r]}`);
+  return Number(`${first}${last}`);
 };
 
-restoreCalibrationValues('./day1-input.txt').then(console.log);
+console.log(restoreCalibrationValues('./day1-input.txt'));
