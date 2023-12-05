@@ -1,35 +1,15 @@
-import { getfirstAndLastDigit } from '../helpers/firstAndLastDigit';
-import { getFirstAndLastSpelledNum } from '../helpers/firstAndLastSpelled';
 import { parseInput } from '../helpers/parseInput';
+import { getFirstNumber } from './getFirstNumber';
+import { getLastNumber } from './getLastNumber';
 
 const restoreCalibrationValues = (inputPath: string) => {
   const input = parseInput(inputPath);
-
-  return input.reduce((sum, currLine) => {
-    return sum + calculateLineCalibration(currLine);
-  }, 0);
+  return input.reduce((sum, line) => sum + calculateLineCalibration(line), 0);
 };
 
 const calculateLineCalibration = (line: string) => {
-  const digit = getfirstAndLastDigit(line);
-  const spelled = getFirstAndLastSpelledNum(line);
-
-  let first = '';
-  let last = '';
-  if ('first' in digit && 'first' in spelled) {
-    first =
-      digit.first.index < spelled.first.index
-        ? digit.first.num
-        : spelled.first.num;
-    last =
-      digit.last.index > spelled.last.index ? digit.last.num : spelled.last.num;
-  } else if ('first' in spelled) {
-    first = spelled.first.num;
-    last = spelled.last.num;
-  } else if ('first' in digit) {
-    first = digit.first.num;
-    last = digit.last.num;
-  }
+  let first = getFirstNumber(line);
+  let last = getLastNumber(line);
 
   return Number(`${first}${last}`);
 };
