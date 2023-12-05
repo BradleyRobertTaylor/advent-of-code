@@ -1,5 +1,5 @@
 import fs from 'fs';
 
-export const parseInput = (inputPath: string) => {
+export const getInput = (inputPath: string) => {
   return fs.readFileSync(inputPath, 'utf8').trim().split('\n');
 };

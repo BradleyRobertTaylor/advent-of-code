@@ -1,9 +1,9 @@
-import { parseInput } from '../helpers/parseInput';
+import { getInput } from '../helpers/getInput';
 import { getFirstNumber } from './getFirstNumber';
 import { getLastNumber } from './getLastNumber';
 
 const restoreCalibrationValues = (inputPath: string) => {
-  const input = parseInput(inputPath);
+  const input = getInput(inputPath);
   return input.reduce((sum, line) => sum + calculateLineCalibration(line), 0);
 };
 

@@ -1,7 +1,7 @@
-import { parseInput } from '../helpers/parseInput';
+import { getInput } from '../helpers/getInput';
 
 const restoreCalibrationValues = (inputPath: string) => {
-  const input = parseInput(inputPath);
+  const input = getInput(inputPath);
 
   return input.reduce((sum, currLine) => {
     return sum + calculateLineCalibration(currLine);
