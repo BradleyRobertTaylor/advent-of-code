@@ -15,13 +15,10 @@ var input string
 var list1, list2 []int
 
 func init() {
+	input = strings.TrimRight(input, "\n")
 	listOfNumPairs := strings.Split(input, "\n")
 	for _, l := range listOfNumPairs {
 		nums := strings.Fields(l)
-
-		if len(nums) < 2 {
-			continue
-		}
 
 		list1 = append(list1, util.Num(nums[0]))
 		list2 = append(list2, util.Num(nums[1]))
