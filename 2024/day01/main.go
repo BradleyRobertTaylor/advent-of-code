@@ -12,10 +12,21 @@ import (
 
 //go:embed day1-input.txt
 var input string
-var list1, list2 []int
+
+//go:embed day1-example.txt
+var exampleInput string
 
 func init() {
 	input = strings.TrimRight(input, "\n")
+	exampleInput = strings.TrimRight(input, "\n")
+}
+
+func main() {
+	fmt.Println(Part1(input))
+}
+
+func Part1(input string) int {
+	var list1, list2 []int
 	listOfNumPairs := strings.Split(input, "\n")
 	for _, l := range listOfNumPairs {
 		nums := strings.Fields(l)
@@ -23,13 +34,6 @@ func init() {
 		list1 = append(list1, util.Num(nums[0]))
 		list2 = append(list2, util.Num(nums[1]))
 	}
-}
-
-func main() {
-	fmt.Println(Part1(list1, list2))
-}
-
-func Part1(list1, list2 []int) int {
 	sort.Ints(list1)
 	sort.Ints(list2)
 
