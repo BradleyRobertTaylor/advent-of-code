@@ -18,7 +18,7 @@ var exampleInput string
 
 func init() {
 	input = strings.TrimRight(input, "\n")
-	exampleInput = strings.TrimRight(input, "\n")
+	exampleInput = strings.TrimRight(exampleInput, "\n")
 }
 
 func main() {
@@ -26,24 +26,25 @@ func main() {
 }
 
 func Part1(input string) int {
-	var list1, list2 []int
+	var list1, list2 []float64
 	listOfNumPairs := strings.Split(input, "\n")
+
 	for _, l := range listOfNumPairs {
 		nums := strings.Fields(l)
 
-		list1 = append(list1, util.Num(nums[0]))
-		list2 = append(list2, util.Num(nums[1]))
+		list1 = append(list1, util.ToFloat64(nums[0]))
+		list2 = append(list2, util.ToFloat64(nums[1]))
 	}
-	sort.Ints(list1)
-	sort.Ints(list2)
+	sort.Float64s(list1)
+	sort.Float64s(list2)
 
-	var result int
+	var result float64
 	for i := range len(list1) {
-		distance := math.Abs(float64(list1[i]) - float64(list2[i]))
-		result += int(distance)
+		distance := math.Abs(list1[i] - list2[i])
+		result += distance
 	}
 
-	return result
+	return int(result)
 }
 
 func Part2() {}
