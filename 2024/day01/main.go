@@ -23,28 +23,50 @@ func init() {
 
 func main() {
 	fmt.Println(Part1(input))
+	fmt.Println(Part2(input))
 }
 
 func Part1(input string) int {
-	var list1, list2 []float64
-	listOfNumPairs := strings.Split(input, "\n")
-
-	for _, l := range listOfNumPairs {
-		nums := strings.Fields(l)
-
-		list1 = append(list1, util.ToFloat64(nums[0]))
-		list2 = append(list2, util.ToFloat64(nums[1]))
-	}
-	sort.Float64s(list1)
-	sort.Float64s(list2)
-
 	var result float64
-	for i := range len(list1) {
-		distance := math.Abs(list1[i] - list2[i])
+	leftList, rightList := getLists(input)
+	for i := range len(leftList) {
+		distance := math.Abs(leftList[i] - rightList[i])
 		result += distance
 	}
 
 	return int(result)
 }
 
-func Part2() {}
+func Part2(input string) int {
+	leftList, rightList := getLists(input)
+
+	count := make(map[float64]int)
+	for _, n := range rightList {
+		count[n]++
+	}
+
+	var result int
+	for _, n := range leftList {
+		if numCount, ok := count[n]; ok {
+			result += numCount * int(n)
+		}
+	}
+
+	return result
+}
+
+func getLists(input string) ([]float64, []float64) {
+	var leftList, rightList []float64
+	listOfNumPairs := strings.Split(input, "\n")
+
+	for _, l := range listOfNumPairs {
+		nums := strings.Fields(l)
+
+		leftList = append(leftList, util.ToFloat64(nums[0]))
+		rightList = append(rightList, util.ToFloat64(nums[1]))
+	}
+	sort.Float64s(leftList)
+	sort.Float64s(rightList)
+
+	return leftList, rightList
+}
