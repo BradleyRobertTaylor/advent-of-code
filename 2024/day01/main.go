@@ -2,7 +2,6 @@ package main
 
 import (
 	_ "embed"
-	"fmt"
 	"math"
 	"sort"
 	"strings"
@@ -19,11 +18,6 @@ var exampleInput string
 func init() {
 	input = strings.TrimRight(input, "\n")
 	exampleInput = strings.TrimRight(exampleInput, "\n")
-}
-
-func main() {
-	fmt.Println(Part1(input))
-	fmt.Println(Part2(input))
 }
 
 func Part1(input string) int {

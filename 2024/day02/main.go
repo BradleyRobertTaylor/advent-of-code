@@ -2,7 +2,6 @@ package main
 
 import (
 	_ "embed"
-	"fmt"
 	"math"
 	"strings"
 
@@ -18,11 +17,6 @@ var exampleInput string
 func init() {
 	input = strings.TrimRight(input, "\n")
 	exampleInput = strings.TrimRight(exampleInput, "\n")
-}
-
-func main() {
-	fmt.Println(Part1(input))
-	fmt.Println(Part2(input))
 }
 
 func Part1(input string) int {
@@ -79,11 +73,7 @@ func getReports(input string) [][]int {
 }
 
 func isReportSafe(r []int) bool {
-	var isInc bool
-
-	if r[0] < r[1] {
-		isInc = true
-	}
+	isInc := r[0] < r[1]
 
 	for i := 1; i < len(r); i++ {
 		n := r[i]
