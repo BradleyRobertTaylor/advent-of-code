@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	// "fmt"
 	"regexp"
 	"strings"
 
@@ -23,22 +24,11 @@ func init() {
 }
 
 func Part1(input string) int {
-	r, _ := regexp.Compile(`mul\(\d{1,3},\d{1,3}\)`)
-	matches := r.FindAllString(input, -1)
-	l, _ := regexp.Compile(`\d{1,3},`)
-	r, _ = regexp.Compile(`,\d{1,3}`)
-
-	var product int
-	for _, m := range matches {
-		left, right := l.FindString(m), r.FindString(m)
-		left = left[:len(left)-1]
-		right = right[1:]
-
-		product += util.ToInt(left) * util.ToInt(right)
-	}
-
-	return product
-
+	r, _ := regexp.Compile(`mul\((\d{1,3}),(\d{1,3})\)`)
+	pairs := util.Map(r.FindAllStringSubmatch(input, -1), func(matches []string) int {
+		return util.ToInt(matches[1]) * util.ToInt(matches[2])
+	})
+	return util.Sum(pairs...)
 }
 
 func Part2(input string) int {

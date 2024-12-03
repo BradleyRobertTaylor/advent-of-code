@@ -19,3 +19,11 @@ func Map[T, V any](l []T, myFunc func(val T) V) []V {
 	}
 	return result
 }
+
+func Sum(l ...int) int {
+	sum := 0
+	for _, v := range l {
+		sum += v
+	}
+	return sum
+}
