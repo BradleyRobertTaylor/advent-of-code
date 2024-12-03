@@ -21,7 +21,8 @@ func init() {
 }
 
 func main() {
-	fmt.Println(Part2(exampleInput))
+	fmt.Println(Part1(input))
+	fmt.Println(Part2(input))
 }
 
 func Part1(input string) int {
@@ -37,8 +38,33 @@ func Part1(input string) int {
 	return safe
 }
 
+// Not very efficient n^2 :(
 func Part2(input string) int {
-	return 0
+	reports := getReports(input)
+	var safe int
+
+	for _, r := range reports {
+		if isReportSafe(r) {
+			safe++
+			continue
+		}
+
+		for i := 0; i < len(r); i++ {
+			sliceWithRemoved := make([]int, 0, len(r)-1)
+			for j := 0; j < len(r); j++ {
+				if j != i {
+					sliceWithRemoved = append(sliceWithRemoved, r[j])
+				}
+			}
+
+			if isReportSafe(sliceWithRemoved) {
+				safe++
+				break
+			}
+		}
+	}
+
+	return safe
 }
 
 func getReports(input string) [][]int {
