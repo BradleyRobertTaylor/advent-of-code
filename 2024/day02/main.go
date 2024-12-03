@@ -49,9 +49,9 @@ func Part2(input string) int {
 			continue
 		}
 
-		for i := 0; i < len(r); i++ {
+		for i := range r {
 			sliceWithRemoved := make([]int, 0, len(r)-1)
-			for j := 0; j < len(r); j++ {
+			for j := range r {
 				if j != i {
 					sliceWithRemoved = append(sliceWithRemoved, r[j])
 				}
@@ -81,14 +81,13 @@ func getReports(input string) [][]int {
 func isReportSafe(r []int) bool {
 	var isInc bool
 
-	diff := r[0] - r[1]
-	if diff < 0 {
+	if r[0] < r[1] {
 		isInc = true
 	}
 
 	for i := 1; i < len(r); i++ {
 		n := r[i]
-		diff = r[i-1] - n
+		diff := r[i-1] - n
 		absDiff := math.Abs(float64(diff))
 
 		if diff == 0 || absDiff > 3 {
