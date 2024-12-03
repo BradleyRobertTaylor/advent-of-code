@@ -5,7 +5,7 @@ import (
 	"math"
 	"strings"
 
-	"github.com/BradleyRobertTaylor/advent-of-code/util"
+	u "github.com/BradleyRobertTaylor/advent-of-code/util"
 )
 
 //go:embed day2-input.txt
@@ -63,9 +63,9 @@ func Part2(input string) int {
 
 func getReports(input string) [][]int {
 	inputSlice := strings.Split(input, "\n")
-	reports := util.Map(inputSlice, func(s string) []int {
-		return util.Map(strings.Fields(s), func(s string) int {
-			return util.ToInt(s)
+	reports := u.Map(inputSlice, func(s string) []int {
+		return u.Map(strings.Fields(s), func(s string) int {
+			return u.ToInt(s)
 		})
 	})
 

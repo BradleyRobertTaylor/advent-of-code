@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/BradleyRobertTaylor/advent-of-code/util"
+	u "github.com/BradleyRobertTaylor/advent-of-code/util"
 )
 
 //go:embed day1-input.txt
@@ -56,8 +56,8 @@ func getLists(input string) ([]float64, []float64) {
 	for _, l := range listOfNumPairs {
 		nums := strings.Fields(l)
 
-		leftList = append(leftList, util.ToFloat64(nums[0]))
-		rightList = append(rightList, util.ToFloat64(nums[1]))
+		leftList = append(leftList, u.ToFloat64(nums[0]))
+		rightList = append(rightList, u.ToFloat64(nums[1]))
 	}
 	sort.Float64s(leftList)
 	sort.Float64s(rightList)

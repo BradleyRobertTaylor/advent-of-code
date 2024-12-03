@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/BradleyRobertTaylor/advent-of-code/util"
+	u "github.com/BradleyRobertTaylor/advent-of-code/util"
 )
 
 //go:embed day3-input.txt
@@ -25,10 +25,10 @@ func init() {
 
 func Part1(input string) int {
 	r, _ := regexp.Compile(`mul\((\d{1,3}),(\d{1,3})\)`)
-	pairs := util.Map(r.FindAllStringSubmatch(input, -1), func(matches []string) int {
-		return util.ToInt(matches[1]) * util.ToInt(matches[2])
+	pairs := u.Map(r.FindAllStringSubmatch(input, -1), func(matches []string) int {
+		return u.ToInt(matches[1]) * u.ToInt(matches[2])
 	})
-	return util.Sum(pairs...)
+	return u.Sum(pairs...)
 }
 
 func Part2(input string) int {
