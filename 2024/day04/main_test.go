@@ -31,7 +31,7 @@ func TestPart2(t *testing.T) {
 		expected    int
 	}{
 		{"Day 4 Example input", exampleInput, 9},
-		// {"Day 4 Actual input", input, 93465710},
+		{"Day 4 Actual input", input, 1990},
 	}
 
 	for _, tt := range tests {
