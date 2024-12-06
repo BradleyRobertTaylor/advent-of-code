@@ -18,27 +18,27 @@ func init() {
 
 const XMAS = "XMAS"
 
-var directions = map[string][2]int{
-	"up":         {-1, 0},
-	"down":       {1, 0},
-	"left":       {0, -1},
-	"right":      {0, 1},
-	"up left":    {-1, -1},
-	"up right":   {-1, 1},
-	"down left":  {1, -1},
-	"down right": {1, 1},
-}
-
 func Part1(input string) int {
 	matrix := formatInput(input)
 	var result int
+
+	var directions = map[string][2]int{
+		"up":         {-1, 0},
+		"down":       {1, 0},
+		"left":       {0, -1},
+		"right":      {0, 1},
+		"up left":    {-1, -1},
+		"up right":   {-1, 1},
+		"down left":  {1, -1},
+		"down right": {1, 1},
+	}
 
 	for i, row := range matrix {
 		for j := range row {
 			if matrix[i][j] == string(XMAS[0]) {
 				for d, dir := range directions {
 					row, col := i+dir[0], j+dir[1]
-					if dfs(matrix, row, col, 1, d) {
+					if dfs(matrix, row, col, 1, d, directions) {
 						result += 1
 					}
 				}
@@ -67,7 +67,7 @@ func formatInput(input string) [][]string {
 	return result
 }
 
-func dfs(matrix [][]string, row, col, curr int, dir string) bool {
+func dfs(matrix [][]string, row, col, curr int, dir string, directions map[string][2]int) bool {
 	if curr == len(XMAS) {
 		return true
 	}
@@ -82,5 +82,5 @@ func dfs(matrix [][]string, row, col, curr int, dir string) bool {
 
 	r, c := row+directions[dir][0], col+directions[dir][1]
 
-	return dfs(matrix, r, c, curr+1, dir)
+	return dfs(matrix, r, c, curr+1, dir, directions)
 }
