@@ -66,46 +66,22 @@ func Part2(input string) int {
 }
 
 func isCrossMAS(matrix [][]string, row int, col int) bool {
-	corners := map[string][2]int{
-		"leftUp":    {row, col},
-		"rightUp":   {row, col + 2},
-		"leftDown":  {row + 2, col},
-		"rightDown": {row + 2, col + 2},
+	corners := map[string][2][2]int{
+		"leftUp":    {{row, col}, {1, 1}},
+		"rightUp":   {{row, col + 2}, {1, -1}},
+		"leftDown":  {{row + 2, col}, {-1, 1}},
+		"rightDown": {{row + 2, col + 2}, {-1, -1}},
 	}
 
 	var count int
-	for k, v := range corners {
+	for _, v := range corners {
 		isMAS := true
-		switch k {
-		case "leftUp":
-			for i := range len(MAS) {
-				r, c := v[0]+i, v[1]+i
-				if matrix[r][c] != string(MAS[i]) {
-					isMAS = false
-				}
+		for i := range len(MAS) {
+			corner, dirs := v[0], v[1]
+			r, c := corner[0]+dirs[0]*i, corner[1]+dirs[1]*i
+			if matrix[r][c] != string(MAS[i]) {
+				isMAS = false
 			}
-		case "rightUp":
-			for i := range len(MAS) {
-				r, c := v[0]+i, v[1]-i
-				if matrix[r][c] != string(MAS[i]) {
-					isMAS = false
-				}
-			}
-		case "leftDown":
-			for i := range len(MAS) {
-				r, c := v[0]-i, v[1]+i
-				if matrix[r][c] != string(MAS[i]) {
-					isMAS = false
-				}
-			}
-		case "rightDown":
-			for i := range len(MAS) {
-				r, c := v[0]-i, v[1]-i
-				if matrix[r][c] != string(MAS[i]) {
-					isMAS = false
-				}
-			}
-
 		}
 
 		if isMAS {
