@@ -2,9 +2,7 @@ package main
 
 import (
 	_ "embed"
-	"fmt"
 	"strings"
-	// u "github.com/BradleyRobertTaylor/advent-of-code/util"
 )
 
 //go:embed day6-input.txt
@@ -56,7 +54,6 @@ func findStartPosition(m [][]string) [2]int {
 
 func traverse(start [2]int, matrix [][]string, direction [2]int, dirKey string, previousPosition [2]int, visited map[[2]int]bool) int {
 	row, col := start[0], start[1]
-	fmt.Println(row, col, dirKey)
 	if row < 0 || row >= len(matrix) || col < 0 || col >= len(matrix[0]) {
 		return 0
 	}
